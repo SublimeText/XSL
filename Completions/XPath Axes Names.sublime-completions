@@ -1,0 +1,84 @@
+{
+    // if current token is an illegal axis, double colon already exists
+    "scope": "source.xpath invalid.illegal.axis",
+    "completions": [
+        {
+            "trigger": "ancestor::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "ancestor"
+        },
+        {
+            "trigger": "ancestor-or-self::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "ancestor-or-self"
+        },
+        {
+            "trigger": "attribute::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "attribute"
+        },
+        {
+            "trigger": "child::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "child"
+        },
+        {
+            "trigger": "descendant::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "descendant"
+        },
+        {
+            "trigger": "descendant-or-self::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "descendant-or-self"
+        },
+        {
+            "trigger": "following::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "following"
+        },
+        {
+            "trigger": "following-sibling::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "following-sibling"
+        },
+        {
+            "trigger": "namespace::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "namespace"
+        },
+        {
+            "trigger": "parent::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "parent"
+        },
+        {
+            "trigger": "preceding::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "preceding"
+        },
+        {
+            "trigger": "preceding-sibling::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "preceding-sibling"
+        },
+        {
+            "trigger": "self::",
+            "annotation": "XPath 1.0",
+            "kind": ["navigation", "a", "axis"],
+            "contents": "self"
+        }
+    ]
+}

@@ -1,0 +1,86 @@
+%YAML 1.2
+---
+name: XSL 2.0
+scope: text.xml.xsl.2
+version: 2
+
+extends: XSL 1.0.sublime-syntax
+
+variables:
+
+  # attributes with xpath type expression values
+  qualified_xpath_type_attribute_name: |-
+    (?x)
+    (?:
+      (?:
+        ({{identifier}})           # 1: valid namespace
+      | ([^:=/<>\s]+)              # 2: invalid namespace
+      )(:)
+    )?                             # namespace is optional
+    (as)                           # 3: valid localname
+    (?=[=<>\s]|[/?]>)
+
+  # attributes with xpath expression values
+  xpath_attribute_name: |-
+    (?xi: elements | match | select | test | use
+    | group-(?: adjacent | by | (?: ending | starting )-with ) )
+
+contexts:
+
+  tag-xpath-attribute:
+    - meta_prepend: true
+    - match: '{{qualified_xpath_type_attribute_name}}'
+      captures:
+        1: entity.other.attribute-name.namespace.xml
+        2: invalid.illegal.bad-attribute-name.xml
+        3: entity.other.attribute-name.xml punctuation.separator.namespace.xml
+        4: entity.other.attribute-name.localname.xml
+      push: tag-xpath-type-attribute-assignment
+
+  tag-xpath-type-attribute-assignment:
+    - meta_include_prototype: false
+    - match: =
+      scope: punctuation.separator.key-value.xml
+      set: tag-xpath-type-attribute-value
+    - include: tag-else-pop
+
+  tag-xpath-type-attribute-value:
+    - meta_include_prototype: false
+    - match: \"
+      scope: string.quoted.double.xml punctuation.definition.string.begin.xml
+      set: tag-xpath-type-attribute-double-qouted-body
+    - match: \'
+      scope: string.quoted.single.xml punctuation.definition.string.begin.xml
+      set: tag-xpath-type-attribute-single-qouted-body
+    - match: '[^?/<>\s]+'
+      scope: invalid.illegal.bad-attribute-value.xml
+      pop: 1
+    - include: tag-else-pop
+
+  tag-xpath-type-attribute-double-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xml
+    - meta_content_scope: source.xpath.embedded.xsl
+    - match: \"
+      scope: string.quoted.double.xml punctuation.definition.string.begin.xml
+      pop: 1
+    - match: (?=\S)
+      push: xpath-sequence-type
+
+  tag-xpath-type-attribute-single-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xml
+    - meta_content_scope: source.xpath.embedded.xsl
+    - match: \'
+      scope: string.quoted.single.xml punctuation.definition.string.begin.xml
+      pop: 1
+    - match: (?=\S)
+      push: xpath-sequence-type
+
+  xpath-query-content:
+    - include: scope:source.xpath.2
+      apply_prototype: true
+
+  xpath-sequence-type:
+    - include: scope:source.xpath.2#sequence-type
+      apply_prototype: true

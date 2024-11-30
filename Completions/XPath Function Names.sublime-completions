@@ -1,0 +1,804 @@
+{
+	"scope": "source.xpath meta.function-call.identifier",
+	"completions": [
+
+		// XPath 1.0 Functions
+
+		{
+			"trigger": "boolean",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "ceiling",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "choose",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "concat",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "contains",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "count",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "element-available",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "false",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "floor",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "function-available",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "id",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "lang",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "last",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "local-name",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "name",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "namespace-uri",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "normalize-space",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "not",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "number",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "position",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "round",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "starts-with",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "string",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "string-length",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "substring",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "substring-after",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "substring-before",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "sum",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "translate",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "true",
+			"annotation": "XPath 1.0",
+			"kind": "function",
+		},
+
+		// XPath 2.0 Functions
+
+		{
+			"trigger": "abs",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "adjust-date-to-timezone",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "adjust-dateTime-to-timezone",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "adjust-time-to-timezone",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "avg",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "base-uri",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "codepoint-equal",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "codepoints-to-string",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "collection",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "compare",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "current-date",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "current-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "current-time",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "data",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "day-from-date",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "day-from-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "days-from-duration",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "deep-equal",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "default-collation",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "distinct-values",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "doc",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "doc-available",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "document-uri",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "empty",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "ends-with",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "error",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "escape-html-uri",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "exactly-one",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "exists",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "hours-from-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "hours-from-duration",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "hours-from-time",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "id",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "idref",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "implicit-timezone",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "in-scope-prefixes",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "index-of",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "insert-before",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "local-name-from-QName",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "lower-case",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "matches",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "max",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "min",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "minutes-from-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "minutes-from-duration",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "minutes-from-time",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "month-from-date",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "month-from-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "months-from-duration",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "namespace-uri-for-prefix",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "namespace-uri-from-QName",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "nilled",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "node-name",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "normalize-unicode",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "one-or-more",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "QName",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "remove",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "replace",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "resolve-QName",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "resolve-uri",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "reverse",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "root",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "round-half-to-even",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "seconds-from-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "seconds-from-duration",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "seconds-from-time",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "static-base-uri",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "string-join",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "string-to-codepoints",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "subsequence",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "timezone-from-date",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "timezone-from-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "timezone-from-time",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "tokenize",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "trace",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "unordered",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "upper-case",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "year-from-date",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "year-from-dateTime",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "years-from-duration",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "zero-or-one",
+			"annotation": "XPath 2.0",
+			"kind": "function",
+		},
+
+		// XPath 3.0 Functions
+
+		{
+			"trigger": "analyze-string",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "apply",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "available-environment-variables",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "collation-key",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "contains-token",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "default-language",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "element-with-id",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "encode-for-uri",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "environment-variable",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "escape-html-uri",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "filter",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "fold-left",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "fold-right",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "for-each",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "for-each-pair",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "format-date",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "format-dateTime",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "format-integer",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "format-time",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "function-arity",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "function-lookup",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "function-name",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "has-children",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "head",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "innermost",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "iri-to-uri",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "json-doc",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "json-to-xml",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "load-xquery-module",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "outermost",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "parse-ietf-date",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "parse-json",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "parse-xml",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "parse-xml-fragment",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "path",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "prefix-from-QName",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "random-number-generator",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "serialize",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "sort",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "tail",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "transform",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "unparsed-text",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "unparsed-text-available",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "unparsed-text-lines",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "uri-collection",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+		{
+			"trigger": "xml-to-json",
+			"annotation": "XPath 3.0",
+			"kind": "function",
+		},
+	]
+}

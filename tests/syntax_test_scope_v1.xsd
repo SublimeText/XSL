@@ -1,0 +1,222 @@
+## SYNTAX TEST "Packages/XSL/XSD.sublime-syntax"
+
+<?xml version="1.0" encoding="UTF-8"?>
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.preprocessor.xml
+##^^^ entity.name.tag.xml
+##    ^^^^^^^ entity.other.attribute-name.localname.xml
+##           ^ punctuation.separator.key-value.xml
+##            ^^^^^ meta.string.xml string.quoted.double.xml
+##            ^ punctuation.definition.string.begin.xml
+##                ^ punctuation.definition.string.end.xml
+##                  ^^^^^^^^ entity.other.attribute-name.localname.xml
+##                          ^ punctuation.separator.key-value.xml
+##                           ^^^^^^^ meta.string.xml string.quoted.double.xml
+##                           ^ punctuation.definition.string.begin.xml
+##                                 ^ punctuation.definition.string.end.xml
+##                                  ^^ punctuation.definition.tag.end.xml
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##^ entity.name.tag.namespace.xml
+## ^ entity.name.tag.xml punctuation.separator.namespace.xml
+##  ^^^^^^ entity.name.tag.localname.xml
+##         ^^^^^ entity.other.attribute-name.namespace.xml
+##              ^ entity.other.attribute-name.xml punctuation.separator.namespace.xml
+##               ^^ entity.other.attribute-name.localname.xml
+##                 ^ punctuation.separator.key-value.xml
+##                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.xml string.quoted.double.xml
+##                  ^ punctuation.definition.string.begin.xml
+##                                                   ^ punctuation.definition.string.end.xml
+##                                                    ^ punctuation.definition.tag.end.xml, punctuation.definition.tag.end.opening.xml
+
+<!--
+ XPath Tests
+ -->
+
+<xs:assert test="every $child in * satisfies not($child/preceding::*[name() = name($child)])"></xs:assert>
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##^ entity.name.tag.namespace.xml
+## ^ entity.name.tag.xml punctuation.separator.namespace.xml
+##  ^^^^^^ entity.name.tag.localname.xml
+##         ^^^^ entity.other.attribute-name.localname.xml
+##             ^ punctuation.separator.key-value.xml
+##              ^ meta.string.xml string.quoted.double.xml punctuation.definition.string.begin.xml
+##               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.string.xml source.xpath.embedded.xsl
+##               ^^^^^ keyword.control.loop.xpath
+##                     ^^^^^^ variable.other.xpath
+##                     ^ punctuation.definition.variable.xpath
+##                            ^^ keyword.operator.iteration.xpath
+##                               ^ constant.other.wildcard.asterisk.xpath
+##                                 ^^^^^^^^^ keyword.other.satisfies.xpath
+##                                           ^^^ meta.function-call.identifier.xpath variable.function.xpath
+##                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function-call.arguments.xpath
+##                                              ^ punctuation.section.arguments.begin.xpath
+##                                               ^^^^^^ variable.other.xpath
+##                                               ^ punctuation.definition.variable.xpath
+##                                                     ^ punctuation.separator.path.xpath
+##                                                      ^^^^^^^^^ constant.language.axis.xpath
+##                                                               ^^ punctuation.accessor.double-colon.xpath
+##                                                                 ^ constant.other.wildcard.asterisk.xpath
+##                                                                  ^^^^^^^^^^^^^^^^^^^^^^^ meta.predicate.xpath
+##                                                                  ^ punctuation.section.predicate.begin.xpath
+##                                                                   ^^^^ meta.function-call.identifier.xpath variable.function.xpath
+##                                                                       ^^ meta.function-call.arguments.xpath
+##                                                                       ^ punctuation.section.arguments.begin.xpath
+##                                                                        ^ punctuation.section.arguments.end.xpath
+##                                                                          ^ keyword.operator.comparison.xpath
+##                                                                            ^^^^ meta.function-call.identifier.xpath variable.function.xpath
+##                                                                                ^^^^^^^^ meta.function-call.arguments.xpath
+##                                                                                ^ punctuation.section.arguments.begin.xpath
+##                                                                                 ^^^^^^ variable.other.xpath
+##                                                                                 ^ punctuation.definition.variable.xpath
+##                                                                                       ^ punctuation.section.arguments.end.xpath
+##                                                                                        ^ punctuation.section.predicate.end.xpath
+##                                                                                         ^ punctuation.section.arguments.end.xpath
+##                                                                                          ^ meta.string.xml string.quoted.double.xml punctuation.definition.string.end.xml
+##                                                                                           ^ punctuation.definition.tag.end.xml, punctuation.definition.tag.end.opening.xml
+##                                                                                            ^^ punctuation.definition.tag.begin.xml, punctuation.definition.tag.begin.closing.xml
+##                                                                                              ^^ entity.name.tag.namespace.xml
+##                                                                                                ^ entity.name.tag.xml punctuation.separator.namespace.xml
+##                                                                                                 ^^^^^^ entity.name.tag.localname.xml
+##                                                                                                       ^ punctuation.definition.tag.end.xml, punctuation.definition.tag.end.closing.xml
+
+<!--
+ Anti Interpolation Tests
+ -->
+
+<xs:tag attr="No {interpolation, item}"/>
+##           ^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml meta.string.xml string.quoted.double.xml - meta.interpolation
+
+No {interpolation, item}
+##^^^^^^^^^^^^^^^^^^^^^^^ - meta
+
+<!--
+ Regular Expression tests
+ -->
+
+<xs:pattern value="" />
+##^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                ^^ meta.string.regexp.xml string.quoted.double.xml
+##                ^ punctuation.definition.string.begin.xml
+##                 ^ punctuation.definition.string.end.xml
+##                   ^^ punctuation.definition.tag.end.xml, punctuation.definition.tag.end.self-closing.xml
+
+<xs:pattern value="\" />
+##^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                ^^^ meta.string.regexp.xml string.quoted.double.xml
+##                ^ punctuation.definition.string.begin.xml
+##                 ^^ - constant.character.escape
+##                  ^ punctuation.definition.string.end.xml
+##                    ^^ punctuation.definition.tag.end.xml, punctuation.definition.tag.end.self-closing.xml
+
+<xs:pattern value="""" />
+##^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                ^^ meta.string.regexp.xml string.quoted.double.xml
+##                ^ punctuation.definition.string.begin.xml
+##                 ^ punctuation.definition.string.end.xml
+##                  ^^ invalid.illegal.bad-attribute-name.xml
+##                     ^^ punctuation.definition.tag.end.xml, punctuation.definition.tag.end.self-closing.xml
+
+<!-- Groups, alternation, quantifier -->
+<xs:pattern value="(?:foo|bar|.|\.){1,2}" />
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                 ^^^^^^^^^^^^^^^^^^^^^
+##                 ^^^^^^^^^^^^^^^^ meta.group.regexp meta.mode.basic.regexp
+##                 ^ punctuation.section.group.begin.regexp
+##                  ^^ constant.other.assertion.regexp
+##                       ^ keyword.operator.alternation.regexp
+##                           ^ keyword.operator.alternation.regexp
+##                            ^ keyword.other.any.regexp
+##                             ^ keyword.operator.alternation.regexp
+##                              ^^ constant.character.escape.regexp
+##                                ^ punctuation.section.group.end.regexp
+##                                 ^^^^^ meta.mode.basic.regexp keyword.operator.quantifier.regexp
+
+<!-- Unicode properties and blocks -->
+<xs:pattern value="^[\p{Ll}\p{Lu}-[\p{IsBasicLatin}]]$" />
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.mode.basic.regexp
+##                 ^ keyword.control.anchor.regexp
+##                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.set.regexp
+##                  ^ punctuation.definition.set.begin.regexp
+##                   ^^^^^^^^^^^^ keyword.control.character-class.regexp
+##                               ^ keyword.operator.arithmetic.regexp
+##                                ^^^^^^^^^^^^^^^^^^ meta.set.regexp
+##                                ^ punctuation.definition.set.begin.regexp
+##                                 ^^^^^^^^^^^^^^^^ keyword.control.character-class.regexp
+##                                                 ^ punctuation.definition.set.end.regexp
+##                                                  ^ punctuation.definition.set.end.regexp
+##                                                   ^ keyword.control.anchor.regexp
+
+<!-- Special purpose escapes \c and \i -->
+<xs:pattern value="^\i-\c$" />
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                ^^^^^^^^^ meta.string.regexp.xml string.quoted.double.xml
+##                ^ punctuation.definition.string.begin.xml
+##                 ^^^^^^^ meta.mode.basic.regexp
+##                 ^ keyword.control.anchor.regexp
+##                  ^^ constant.character.escape.regexp
+##                     ^^ constant.character.escape.regexp
+##                       ^ keyword.control.anchor.regexp
+##                        ^ punctuation.definition.string.end.xml
+
+<!-- Special purpose escapes \c and \i in character classes -->
+<xs:pattern value="[\i-\c]+" />
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                ^^^^^^^^^ meta.string.regexp.xml string.quoted.double.xml
+##                ^ punctuation.definition.string.begin.xml
+##                 ^^^^^^^ meta.mode.basic.regexp meta.set.regexp
+##                 ^ punctuation.definition.set.begin.regexp
+##                  ^^^^^ constant.other.range.regexp
+##                  ^^ constant.character.escape.regexp
+##                    ^ punctuation.separator.sequence.regexp
+##                     ^^ constant.character.escape.regexp
+##                       ^ punctuation.definition.set.end.regexp
+##                        ^ keyword.operator.quantifier.regexp
+##                         ^ punctuation.definition.string.end.xml
+
+<!-- character class subtraction -->
+<xs:pattern value="[a-z-[aeiou]]" />
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                ^^^^^^^^^^^^^^^ meta.string.regexp.xml string.quoted.double.xml
+##                ^ punctuation.definition.string.begin.xml
+##                 ^^^^^^^^^^^^^ meta.mode.basic.regexp meta.set.regexp
+##                 ^ punctuation.definition.set.begin.regexp
+##                  ^^^ constant.other.range.regexp
+##                   ^ punctuation.separator.sequence.regexp
+##                     ^^^^^^^^ meta.set.regexp
+##                     ^ keyword.operator.arithmetic.regexp
+##                      ^ punctuation.definition.set.begin.regexp
+##                            ^ punctuation.definition.set.end.regexp
+##                             ^ punctuation.definition.set.end.regexp
+##                              ^ punctuation.definition.string.end.xml
+
+<xs:pattern value="[\i-[:]][\c-[:]]*" />
+##^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.tag.xml
+##                ^^^^^^^^^^^^^^^^^^^ meta.string.regexp.xml string.quoted.double.xml
+##                ^ punctuation.definition.string.begin.xml
+##                 ^^^^^^^^^^^^^^^^^ meta.mode.basic.regexp
+##                 ^^^^ meta.set.regexp - meta.set meta.set
+##                 ^ punctuation.definition.set.begin.regexp
+##                  ^^ constant.character.escape.regexp
+##                    ^ keyword.operator.arithmetic.regexp
+##                     ^^^ meta.set.regexp meta.set.regexp
+##                     ^ punctuation.definition.set.begin.regexp
+##                       ^^ punctuation.definition.set.end.regexp
+##                        ^^^^^ meta.set.regexp - meta.set meta.set
+##                         ^ punctuation.definition.set.begin.regexp
+##                          ^^ constant.character.escape.regexp
+##                            ^ keyword.operator.arithmetic.regexp
+##                             ^^^ meta.set.regexp meta.set.regexp
+##                             ^ punctuation.definition.set.begin.regexp
+##                               ^^ punctuation.definition.set.end.regexp
+##                                ^ meta.set.regexp - meta.set meta.set
+##                                 ^ keyword.operator.quantifier.regexp
+##                                  ^ punctuation.definition.string.end.xml
+
+</xs:schema>
+##^^^^^^^^^^ meta.tag.xml
+##^^ entity.name.tag.namespace.xml
+##  ^ entity.name.tag.xml punctuation.separator.namespace.xml
+##   ^^^^^^ entity.name.tag.localname.xml
+##         ^ punctuation.definition.tag.end.xml, punctuation.definition.tag.end.closing.xml

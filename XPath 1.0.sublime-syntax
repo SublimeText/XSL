@@ -1,0 +1,344 @@
+%YAML 1.2
+---
+# https://www.w3.org/TR/xpath-10
+name: XPath 1.0
+scope: source.xpath.1
+version: 2
+hidden: true
+
+variables:
+  # The atomic part of a tag or attribute name without namespace separator `:`
+  # see: https://www.w3.org/TR/REC-xml-names/#NT-NCName
+  nc_name: '[[:alpha:]_][[:alnum:]_.-]*'
+
+  axis_name: |-
+    (?x:
+      ancestor(?:-or-self)?
+    | attribute
+    | child
+    | descendant(?:-or-self)?
+    | following(?:-sibling)?
+    | namespace
+    | parent
+    | preceding(?:-sibling)?
+    | self
+    )
+
+  kind_test_functions: |-
+    (?x: comment | node | processing-instruction | text )
+
+contexts:
+
+  prototype:
+    - include: comments
+
+  main:
+    - include: expressions
+
+###[ COMMENTS ]###############################################################
+
+  comments:
+    - match: '\(:'
+      scope: punctuation.definition.comment.begin.xpath
+      push: comment-content
+
+  comment-content:
+    - meta_scope: comment.block.xpath
+    - match: :\)
+      scope: punctuation.definition.comment.end.xpath
+      pop: 1
+
+###[ EXPRESSIONS ]############################################################
+
+  expressions:
+    - include: stray-brackets
+    - match: ','
+      scope: punctuation.separator.sequence.xpath
+    - match: (?=\S)
+      push: expression
+
+  expression:
+    # https://www.w3.org/TR/xpath-10/#NT-Expr
+    - include: scope:text.xml#entity
+    - include: unary
+    - include: predicate
+    - include: path-sep
+    - include: path-step
+
+###[ GROUPS ]#################################################################
+
+  group:
+    # https://www.w3.org/TR/xpath-10/#NT-PrimaryExpr (2nd clause)
+    - match: \(
+      scope: punctuation.section.group.begin.xpath
+      set: group-body
+
+  group-body:
+    - meta_scope: meta.group.xpath
+    - match: \)
+      scope: punctuation.section.group.end.xpath
+      set: predicate-or-path-sep-or-operator
+    - include: expressions
+
+###[ PREDICATES ]#############################################################
+
+  predicate-or-path-sep-or-operator:
+    - include: predicate
+    - include: path-sep
+    - include: operator
+
+  predicate:
+    # https://www.w3.org/TR/xpath-10/#NT-Predicate
+    - match: \[
+      scope: punctuation.section.predicate.begin.xpath
+      set: predicate-body
+
+  predicate-body:
+    - meta_scope: meta.predicate.xpath
+    - match: \]
+      scope: punctuation.section.predicate.end.xpath
+      set: predicate-or-path-sep-or-operator
+    - include: expressions
+
+###[ STEPS ]##################################################################
+
+  path-sep:
+    # https://www.w3.org/TR/xpath-10/#NT-LocationPath
+    - match: /{1,2}
+      scope: punctuation.separator.path.xpath
+      set: path-step
+
+  path-step:
+    # https://www.w3.org/TR/xpath-10/#NT-Step
+    # https://www.w3.org/TR/xpath-10/#NT-AbbreviatedAxisSpecifier
+    - match: \.{1,2}(?!\d)
+      scope: variable.language.path.xpath
+      set: predicate-or-path-sep-or-operator
+    - match: \@
+      scope: punctuation.definition.attribute.xpath
+      set: attribute-node-test
+    # https://www.w3.org/TR/xpath-10/#NT-AxisSpecifier
+    - match: (attribute)\s*(::)
+      captures:
+        1: constant.language.axis.xpath
+        2: punctuation.accessor.double-colon.xpath
+      set: attribute-node-test
+    - match: (?:({{axis_name}})|({{nc_name}}))\s*(::)
+      captures:
+        1: constant.language.axis.xpath
+        2: invalid.illegal.axis.xpath
+        3: punctuation.accessor.double-colon.xpath
+      set: element-node-test
+    - include: element-node-test
+
+###[ TESTS ]##################################################################
+
+  attribute-node-test:
+    - include: group
+    - include: number
+    - include: string
+    - include: kind-test
+    - include: function-call
+    - include: attribute-name
+
+  element-node-test:
+    - include: group
+    - include: number
+    - include: string
+    - include: kind-test
+    - include: function-call
+    - include: element-name
+
+  kind-test:
+    - match: (({{kind_test_functions}})\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: support.function.kind-test.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - predicate-or-path-sep-or-operator
+        - function-call-arguments
+
+###[ FUNCTION CALLS ]#########################################################
+
+  function-call:
+    # https://www.w3.org/TR/xpath-10/#NT-FunctionCall
+    - match: ((?:({{nc_name}})\s*(:)\s*)?({{nc_name}})\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: variable.namespace.xpath
+        3: punctuation.separator.namespace.xpath
+        4: variable.function.xpath
+        5: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - predicate-or-path-sep-or-operator
+        - function-call-arguments
+
+  function-call-arguments:
+    - meta_content_scope: meta.function-call.arguments.xpath
+    - match: \)
+      scope: meta.function-call.arguments.xpath punctuation.section.arguments.end.xpath
+      pop: 1
+    - include: stray-brackets
+    - match: ','
+      scope: punctuation.separator.arguments.xpath
+    - match: (?=\S)
+      push: expression
+
+###[ IDENTIFIERS ]############################################################
+
+  attribute-name:
+    # https://www.w3.org/TR/xpath-10/#NT-NameTest
+    - match: ({{nc_name}})(\s*(:))
+      captures:
+        1: entity.other.attribute-name.namespace.xpath
+        2: entity.other.attribute-name.xpath
+        3: punctuation.separator.namespace.xpath
+      set: attribute-local-name
+    - include: variable
+    - include: attribute-local-name
+
+  attribute-local-name:
+    - meta_content_scope: entity.other.attribute-name.xpath
+    - match: '{{nc_name}}'
+      scope: entity.other.attribute-name.localname.xpath
+      set: predicate-or-path-sep-or-operator
+    - match: \*
+      scope: entity.other.attribute-name.localname.xpath constant.other.wildcard.asterisk.xpath
+      set: predicate-or-path-sep-or-operator
+    - include: else-pop
+
+  element-name:
+    # https://www.w3.org/TR/xpath-10/#NT-NameTest
+    - match: ({{nc_name}})(\s*(:))
+      captures:
+        1: entity.name.tag.namespace.xpath
+        2: entity.name.tag.xpath
+        3: punctuation.separator.namespace.xpath
+      set: element-local-name
+    - include: variable
+    - include: element-local-name
+
+  element-local-name:
+    - meta_content_scope: entity.name.tag.xpath
+    - match: '{{nc_name}}'
+      scope: entity.name.tag.localname.xpath
+      set: predicate-or-path-sep-or-operator
+    - match: \*
+      scope: entity.name.tag.localname.xpath constant.other.wildcard.asterisk.xpath
+      set: predicate-or-path-sep-or-operator
+    - include: else-pop
+
+  variable:
+    # https://www.w3.org/TR/xpath-10/#NT-VariableReference
+    - match: \$
+      scope: variable.other.xpath punctuation.definition.variable.xpath
+      set: variable-name
+
+  variable-name:
+    - match: ({{nc_name}})\s*(:)
+      captures:
+        1: variable.namespace.xpath
+        2: punctuation.separator.namespace.xpath
+      set: variable-local-name
+    - include: variable-local-name
+
+  variable-local-name:
+    - match: '{{nc_name}}'
+      scope: variable.other.xpath
+      set: predicate-or-path-sep-or-operator
+    - include: else-pop
+
+###[ LITERALS ]###############################################################
+
+  number:
+    # https://www.w3.org/TR/xpath-10/#NT-Number
+    - match: (-*)((\.)\d+|\d+(\.)\d*)
+      scope: meta.number.float.decimal.xpath
+      captures:
+        1: keyword.operator.arithmetic.xpath
+        2: constant.numeric.value.xpath
+        3: punctuation.separator.decimal.xpath
+        4: punctuation.separator.decimal.xpath
+      set: predicate-or-path-sep-or-operator
+    - match: (-*)(\d+)
+      scope: meta.number.integer.decimal.xpath
+      captures:
+        1: keyword.operator.arithmetic.xpath
+        2: constant.numeric.value.xpath
+      set: predicate-or-path-sep-or-operator
+
+  string:
+    # https://www.w3.org/TR/xpath-10/#NT-Literal
+    - match: \"
+      scope: punctuation.definition.string.begin.xpath
+      set: double-quoted-string-body
+    - match: \'
+      scope: punctuation.definition.string.begin.xpath
+      set: single-quoted-string-body
+
+  double-quoted-string-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xpath string.quoted.double.xpath
+    - match: \"
+      scope: punctuation.definition.string.end.xpath
+      set: predicate-or-path-sep-or-operator
+
+  single-quoted-string-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xpath string.quoted.single.xpath
+    - match: \'
+      scope: punctuation.definition.string.end.xpath
+      set: predicate-or-path-sep-or-operator
+
+###[ OPERATORS ]##############################################################
+
+  unary:
+    # netative unary expression
+    # https://www.w3.org/TR/xpath-10/#NT-UnaryExpr
+    - match: (?!-+\.?\d)\-+
+      scope: keyword.operator.arithmetic.xpath
+
+  operator:
+    # https://www.w3.org/TR/xpath-10/#NT-Operator
+    - match: '[-+*]'
+      scope: keyword.operator.arithmetic.xpath
+      set: expression
+    - match: mod|div
+      scope: keyword.operator.arithmetic.xpath
+      set: expression
+    - match: \!?=|<=?|>=?
+      scope: keyword.operator.comparison.xpath
+      set: expression
+    - match: eq|ne|lt|le|gt|ge
+      scope: keyword.operator.comparison.xpath
+      set: expression
+    - match: and|or
+      scope: keyword.operator.logical.xpath
+      set: expression
+    # https://www.w3.org/TR/xpath-10/#NT-UnionExpr
+    - match: \|
+      scope: keyword.operator.union.xpath
+      set: expression
+    # The following pattern is a heuristic as several real world xslt files
+    # seem to prefer entities to encode `<` or `>` over `lt` `gt` operators.
+    - match: ((&)(?:amp|[gl]t)(;))=?
+      scope: keyword.operator.comparison.xpath
+      captures:
+        1: constant.character.entity.named.xml
+        2: punctuation.definition.entity.xml
+        3: punctuation.terminator.entity.xml
+      set: expression
+    - include: else-pop
+
+###[ ILLEGALS ]###############################################################
+
+  stray-brackets:
+    - match: '[])}]'
+      scope: invalid.illegal.stray.xpath
+
+###[ PROTOTYPES ]#############################################################
+
+  else-pop:
+    - match: (?=\S)
+      pop: 1

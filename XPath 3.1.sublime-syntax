@@ -1,0 +1,441 @@
+%YAML 1.2
+---
+# https://www.w3.org/TR/xpath-31
+name: XPath 3.1
+scope: source.xpath.3
+version: 2
+hidden: true
+
+extends: XPath 2.0.sublime-syntax
+
+variables:
+
+  # https://www.w3.org/TR/xpath-30/#doc-xpath30-EQName
+  eq_name: |-
+    (?x:
+      (?:
+        {{nc_name}} \s* : \s* # lexical qualifier
+      | Q{[^}]*} \s*          # quoted qualifier
+      )?
+      {{nc_name}}             # local name
+    )
+
+contexts:
+
+###[ EXPRESSIONS ]############################################################
+
+  expression:
+    - meta_prepend: true
+    - include: array
+    - include: block
+    - include: mapping
+
+###[ ARRAYS ]#################################################################
+
+  array:
+    # https://www.w3.org/TR/xpath-31/#doc-xpath31-SquareArrayConstructor
+    - match: \[
+      scope: punctuation.section.sequence.begin.xpath
+      set: array-body
+    # https://www.w3.org/TR/xpath-31/#doc-xpath31-CurlyArrayConstructor
+    - match: (array)\s*(\{)
+      captures:
+        1: keyword.declaration.array.xpath
+        2: meta.sequence.array.xpath punctuation.section.sequence.begin.xpath
+      set: array-curly-body
+
+  array-curly-body:
+    - meta_content_scope: meta.sequence.array.xpath
+    - match: \}
+      scope: meta.sequence.array.xpath punctuation.section.mapping.end.xpath
+      set: operator
+    - include: expressions
+
+  array-body:
+    - meta_scope: meta.sequence.array.xpath
+    - match: \]
+      scope: punctuation.section.sequence.end.xpath
+      set: operator
+    - include: expressions
+
+###[ BLOCKs ]#################################################################
+
+  block:
+    # https://www.w3.org/TR/xpath-30/#prod-xpath30-EnclosedExpr
+    - match: \{
+      scope: punctuation.section.block.begin.xpath
+      set: block-body
+
+  block-body:
+    - meta_scope: meta.block.xpath
+    - match: \}
+      scope: punctuation.section.block.end.xpath
+      set: predicate-or-path-sep-or-operator
+    - include: expressions
+
+###[ MAPPINGS ]###############################################################
+
+  mapping:
+    # https://www.w3.org/TR/xpath-31/#doc-xpath31-MapConstructor
+    - match: (map)\s*(\{)
+      captures:
+        1: keyword.declaration.struct.xpath
+        2: meta.mapping.xpath punctuation.section.mapping.begin.xpath
+      set: mapping-body
+
+  mapping-body:
+    - meta_content_scope: meta.mapping.xpath
+    - match: \}
+      scope: meta.mapping.xpath punctuation.section.mapping.end.xpath
+      set: operator
+    - include: stray-brackets
+    - match: ':'
+      scope: meta.mapping.xpath punctuation.separator.key-value.xpath
+      set:
+        - mapping-value
+        - expression
+    - match: ','
+      scope: punctuation.separator.sequence.xpath
+    - match: (?=\S)
+      set:
+        - mapping-key
+        - expression
+
+  mapping-key:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.mapping.key.xpath
+    - match: ''
+      set: mapping-body
+
+  mapping-value:
+    - meta_include_prototype: false
+    - meta_content_scope: meta.mapping.value.xpath
+    - match: ''
+      set: mapping-body
+
+###[ TESTS ]##################################################################
+
+  kind-test:
+    - meta_prepend: true
+    # https://www.w3.org/TR/xpath-31/#doc-xpath31-ArrayTest
+    - match: ((array)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: support.function.kind-test.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - predicate-or-path-sep-or-operator
+        - kind-test-type-arguments
+        - wildcard
+    # https://www.w3.org/TR/xpath-31/#doc-xpath31-MapTest
+    - match: ((map)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: support.function.kind-test.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - predicate-or-path-sep-or-operator
+        - kind-test-type-arguments
+        - key-type
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-TypedFunctionTest
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-InlineFunctionExpr
+    - match: (?=function\s*\()
+      branch_point: function
+      branch:
+        - function-kind-test
+        - function-declaration
+      pop: 1
+
+  function-kind-test:
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-TypedFunctionTest
+    - match: ((function)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: support.function.kind-test.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - predicate-or-path-sep-or-operator
+        - function-kind-test-check
+        - function-return-type
+        - kind-test-type-arguments
+        - wildcard
+
+  function-kind-test-check:
+    - match: (?=\{)
+      fail: function
+    - include: else-pop
+
+###[ FUNCTIONS ]##############################################################
+
+  function-declaration:
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-InlineFunctionExpr
+    - match: ((function)\s*)(\()
+      captures:
+        1: meta.function.xpath
+        2: keyword.declaration.function.xpath
+        3: meta.function.parameters.xpath punctuation.section.parameters.begin.xpath
+      set: function-parameters
+
+  function-parameters:
+    - meta_content_scope: meta.function.parameters.xpath
+    - match: \)
+      scope: meta.function.parameters.xpath punctuation.section.parameters.end.xpath
+      set:
+        - function-block
+        - function-return-type
+    - include: stray-brackets
+    - match: ','
+      scope: punctuation.separator.parameters.xpath
+    - match: (\$){{nc_name}}
+      scope: variable.parameter.xpath
+      captures:
+        1: punctuation.definition.variable.xpath
+    - match: as\b
+      scope: keyword.operator.type.as.xpath
+      push: sequence-type
+
+  function-return-type:
+    - match: as\b
+      scope: keyword.operator.type.as.xpath
+      set: sequence-type
+    - include: else-pop
+
+  function-block:
+    - meta_content_scope: meta.function.return-type.xpath
+    - match: \{
+      scope: punctuation.section.block.begin.xpath
+      set: function-block-body
+    - include: else-pop
+
+  function-block-body:
+    - meta_scope: meta.function.body.xpath meta.block.xpath
+    - include: block-body
+
+###[ FUNCTION CALLS ]#########################################################
+
+  function-call:
+    # https://www.w3.org/TR/xpath-30/#id-dynamic-function-invocation
+    - match: (?=\${{eq_name}}(?:\s*\[[^\]]*\])*\s*\()
+      set:
+        - predicate-or-path-sep-or-operator
+        - dynamic-call-arguments
+        - variable
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-FunctionCall
+    - match: (?={{eq_name}}\s*\()
+      set:
+        - predicate-or-path-sep-or-operator
+        - function-call-name
+        - namespace
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-NamedFunctionRef
+    - match: (?={{eq_name}}\s*#)
+      set:
+        - predicate-or-path-sep-or-operator
+        - function-ref-name
+        - namespace
+
+  dynamic-call-arguments:
+    - meta_content_scope: meta.function-call.identifier.xpath
+    - match: \(
+      scope: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set: function-call-arguments
+    - include: else-pop
+
+  function-call-name:
+    - meta_content_scope: meta.function-call.identifier.xpath
+    # https://www.w3.org/TR/xpath-functions/#func-matches
+    # https://www.w3.org/TR/xpath-functions/#func-tokenize
+    - match: ((matches|tokenize)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: variable.function.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - function-call-arguments
+        - function-call-pattern
+        - expression
+    # https://www.w3.org/TR/xpath-functions/#func-replace
+    - match: ((replace)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: variable.function.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - function-call-arguments
+        - function-call-replacement
+        - function-call-pattern
+        - expression
+    # user defined / other function
+    - match: (({{nc_name}})\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: variable.function.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set: function-call-arguments
+    - include: else-pop
+
+  function-ref-name:
+    - match: '{{nc_name}}'
+      scope: variable.function.xpath
+      set: function-ref-arity
+    - include: else-pop
+
+  function-ref-arity:
+    - match: \#
+      scope: punctuation.separator.arity.xpath
+    - include: number
+    - include: else-pop
+
+  namespace:
+    - match: Q{
+      scope: punctuation.definition.quoted.begin.xpath
+      set: quoted-namepace
+    - match: ({{nc_name}})\s*(:)
+      captures:
+        1: variable.namespace.xpath
+        2: punctuation.separator.namespace.xpath
+      pop: 1
+    - include: else-pop
+
+  quoted-namepace:
+    - meta_scope: variable.namespace.xpath meta.quoted.xpath
+    - match: \}
+      scope: punctuation.definition.quoted.end.xpath
+      pop: 1
+    - match: /
+      scope: punctuation.separator.path.xpath
+
+###[ IDENTIFIERS ]############################################################
+
+  attribute-name:
+    - meta_prepend: true
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-URIQualifiedName
+    - match: Q{
+      scope: punctuation.definition.quoted.begin.xpath
+      set: attribute-quoted-namespace
+
+  attribute-quoted-namespace:
+    - meta_scope: entity.other.attribute-name.namespace.xpath meta.quoted.xpath
+    - match: \}
+      scope: punctuation.definition.quoted.end.xpath
+      set: attribute-local-name
+    - match: /
+      scope: punctuation.separator.path.xpath
+
+  element-name:
+    - meta_prepend: true
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-URIQualifiedName
+    - match: Q{
+      scope: punctuation.definition.quoted.begin.xpath
+      set: element-quoted-namespace
+
+  element-quoted-namespace:
+    - meta_scope: entity.name.tag.namespace.xpath meta.quoted.xpath
+    - match: \}
+      scope: punctuation.definition.quoted.end.xpath
+      set: element-local-name
+    - match: /
+      scope: punctuation.separator.path.xpath
+
+  variable-name:
+    - meta_prepend: true
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-URIQualifiedName
+    - match: Q{
+      scope: punctuation.definition.quoted.begin.xpath
+      set: variable-quoted-namespace
+
+  variable-quoted-namespace:
+    - meta_scope: variable.namespace.xpath meta.quoted.xpath
+    - match: \}
+      scope: punctuation.definition.quoted.end.xpath
+      set: variable-local-name
+    - match: /
+      scope: punctuation.separator.path.xpath
+
+###[ OPERATORS ]##############################################################
+
+  operator:
+    - meta_prepend: true
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-StringConcatExpr
+    - match: \|\|
+      scope: keyword.operator.concat.xpath
+      set: expression
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-SimpleMapExpr
+    - match: \!(?!=)
+      scope: keyword.operator.mapping.xpath
+      set: expression
+
+###[ TYPES ]##################################################################
+
+  key-type:
+    # wildcard indicates "any type"
+    - match: \*
+      scope: constant.other.wildcard.asterisk.xpath
+      pop: 1
+    - include: single-type
+
+  wildcard:
+    # wildcard indicates "any type"
+    - match: \*
+      scope: constant.other.wildcard.asterisk.xpath
+      pop: 1
+    - include: else-pop
+
+  single-type:
+    - meta_prepend: true
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-URIQualifiedName
+    - match: Q{
+      scope: punctuation.definition.quoted.begin.xpath
+      set: single-type-quoted-namespace
+
+  single-type-quoted-namespace:
+    - meta_scope: entity.name.tag.namespace.xpath meta.quoted.xpath
+    - match: \}
+      scope: punctuation.definition.quoted.end.xpath
+      set: single-type-local-name
+    - match: /
+      scope: punctuation.separator.path.xpath
+
+  sequence-type:
+    - meta_prepend: true
+    # https://www.w3.org/TR/xpath-31/#doc-xpath31-ArrayTest
+    - match: ((array)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: support.function.kind-test.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - sequence-type-quantifier
+        - kind-test-type-arguments
+        - wildcard
+    # https://www.w3.org/TR/xpath-31/#doc-xpath31-MapTest
+    - match: ((map)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: support.function.kind-test.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - sequence-type-quantifier
+        - kind-test-type-arguments
+        - key-type
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-TypedFunctionTest
+    - match: ((function)\s*)(\()
+      captures:
+        1: meta.function-call.identifier.xpath
+        2: support.function.kind-test.xpath
+        3: meta.function-call.arguments.xpath punctuation.section.arguments.begin.xpath
+      set:
+        - function-return-type
+        - kind-test-type-arguments
+        - wildcard
+    # https://www.w3.org/TR/xpath-30/#doc-xpath30-URIQualifiedName
+    - match: Q{
+      scope: punctuation.definition.quoted.begin.xpath
+      set: sequence-type-quoted-namespace
+
+  sequence-type-quoted-namespace:
+    - meta_scope: entity.name.tag.namespace.xpath meta.quoted.xpath
+    - match: \}
+      scope: punctuation.definition.quoted.end.xpath
+      set: sequence-type-local-name
+    - match: /
+      scope: punctuation.separator.path.xpath

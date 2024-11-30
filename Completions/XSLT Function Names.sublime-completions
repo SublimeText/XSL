@@ -1,0 +1,179 @@
+{
+	"scope": "source.xpath meta.function-call.identifier",
+	"completions": [
+
+		// XSLT 1.0
+
+		{
+			"trigger": "format-number",
+			"annotation": "XSLT 1.0",
+			"kind": "function",
+			"details": "stylesheet functions"
+		},
+		{
+			"trigger": "generate-id",
+			"annotation": "XSLT 1.0",
+			"kind": "function",
+			"details": "stylesheet functions"
+		},
+		{
+			"trigger": "key",
+			"annotation": "XSLT 1.0",
+			"kind": "function",
+			"details": "stylesheet functions"
+		},
+		{
+			"trigger": "current",
+			"annotation": "XSLT 1.0",
+			"kind": "function",
+			"details": "stylesheet functions"
+		},
+		{
+			"trigger": "document",
+			"annotation": "XSLT 1.0",
+			"kind": "function",
+			"details": "stylesheet functions"
+		},
+		{
+			"trigger": "system-property",
+			"annotation": "XSLT 1.0",
+			"kind": "function",
+			"details": "stylesheet functions"
+		},
+		{
+			"trigger": "unparsed-entity-uri",
+			"annotation": "XSLT 1.0",
+			"kind": "function",
+			"details": "stylesheet functions"
+		},
+
+		// XSLT 2.0
+
+		{
+			"trigger": "accumulator-after",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "accumulator-before",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "available-system-properties",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "collation-key",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "copy-of",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "current-group",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "current-grouping-key",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "current-merge-group",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "current-merge-key",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "current-output-uri",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "deep-equal",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "element-available",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "regex-group",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "snapshot",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "stream-available",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "type-available",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "unparsed-entity-public-id",
+			"annotation": "XSLT 2.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+
+		// XSLT 3.0
+
+		{
+			"trigger": "function-available",
+			"annotation": "XSLT 3.0",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+
+		// XSLT 3.1
+
+		{
+			"trigger": "json-to-xml",
+			"annotation": "XSLT 3.1",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+		{
+			"trigger": "xml-to-json",
+			"annotation": "XSLT 3.1",
+			"kind": "function",
+			"details": "stylesheet function"
+		},
+	]
+}

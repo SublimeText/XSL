@@ -1,0 +1,214 @@
+{
+	"scope": "source.xpath - source.xpath comment - source.xpath string - source.xpath invalid.illegal.axis - source.xpath meta.function.identifier",
+	"completions": [
+
+		// XPath 2.0 conditional and loop keywords
+
+		{
+			"trigger": "if",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+		{
+			"trigger": "then",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+		{
+			"trigger": "else",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+		{
+			"trigger": "for",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+		{
+			"trigger": "return",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+		{
+			"trigger": "every",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+		{
+			"trigger": "some",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+		{
+			"trigger": "satisfies",
+			"annotation": "XPath 2.0",
+			"kind": "keyword",
+		},
+
+		// XPath 3.0 keywords
+
+		{
+			"trigger": "function",
+			"annotation": "XPath 3.0",
+			"kind": "keyword",
+			"details": "inline function definition",
+		},
+
+		// XPath 3.1 keywords
+
+		{
+			"trigger": "array",
+			"annotation": "XPath 3.1",
+			"kind": "keyword",
+			"details": "array definition",
+		},
+		{
+			"trigger": "map",
+			"annotation": "XPath 3.1",
+			"kind": "keyword",
+			"details": "map definition",
+		},
+
+		// XPath 1.0 operator keywords
+
+		{
+			"trigger": "and",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "logical and operator"
+		},
+		{
+			"trigger": "or",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "logical or operator"
+		},
+
+		{
+			"trigger": "div",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "division operator",
+		},
+		{
+			"trigger": "mod",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "return modulo after integer division",
+		},
+
+		{
+			"trigger": "eq",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "equal operator",
+		},
+		{
+			"trigger": "ne",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "not equal operator",
+		},
+		{
+			"trigger": "lt",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "less then operator",
+		},
+		{
+			"trigger": "le",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "less then or equal operator",
+		},
+		{
+			"trigger": "gt",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "greater then operator",
+		},
+		{
+			"trigger": "ge",
+			"annotation": "XPath 1.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "greater then or equal operator",
+		},
+
+		// XPath 2.0 operator keywords
+
+		{
+			"trigger": "in",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "iterate through array of elements",
+		},
+
+		{
+			"trigger": "as",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "type cast operator",
+		},
+		{
+			"trigger": "castable as",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "type cast operator",
+		},
+		{
+			"trigger": "cast as",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "type cast operator",
+		},
+		{
+			"trigger": "instance of",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "type cast operator",
+		},
+		{
+			"trigger": "treat as",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "type cast operator",
+		},
+
+		{
+			"trigger": "except",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "returns all nodes contained in 1st but not in the 2nd operand",
+		},
+		{
+			"trigger": "intersect",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "returns all nodes contained in both operands",
+		},
+		{
+			"trigger": "idiv",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "integer division operator",
+		},
+		{
+			"trigger": "is",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "node comparison operator",
+		},
+		{
+			"trigger": "to",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "range operator: <code>$a to $b</code>",
+		},
+		{
+			"trigger": "union",
+			"annotation": "XPath 2.0",
+			"kind": ["keyword", "o", "operator"],
+			"details": "example: <code>$a union $b</code>",
+		},
+	]
+}

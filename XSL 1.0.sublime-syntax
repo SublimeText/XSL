@@ -1,0 +1,189 @@
+%YAML 1.2
+---
+# https://www.w3.org/TR/1999/REC-xslt-19991116
+name: XSL 1.0
+scope: text.xml.xsl.1
+version: 2
+
+extends: Packages/XML/XML.sublime-syntax
+
+variables:
+
+  qualified_xsl_tag_name: |-
+    (?xi)
+    (xsl) (:)                      # 1: valid xsl namespace
+    (?:
+      ({{identifier}})(?=[/<>\s])  # 3: valid localname
+      |
+      ([^?!/<>\s][^/<>\s]*)        # 4: invalid localname
+    )
+
+  # attributes with xpath expression values
+  qualified_xpath_attribute_name: |-
+    (?x)
+    (?:
+      (?:
+        ({{identifier}})           # 1: valid namespace
+      | ([^:=/<>\s]+)              # 2: invalid namespace
+      )(:)
+    )?                             # namespace is optional
+    ({{xpath_attribute_name}})     # 3: valid localname
+    (?=[=<>\s]|[/?]>)
+
+  xpath_attribute_name: |-
+    (?xi: elements | match | select | test | use )
+
+contexts:
+
+###[ XML EXTENSIONS ]##########################################################
+
+  main:
+    - meta_prepend: true
+    - include: xpath-text-interpolations
+
+  tag:
+    - meta_prepend: true
+    - include: xsl-tag
+
+  tag-attribute:
+    - meta_prepend: true
+    - include: tag-xpath-attribute
+
+  comment-content:
+    - meta_prepend: true
+    - include: xpath-text-interpolations
+
+  cdata-content:
+    - meta_prepend: true
+    - include: xpath-string-interpolations
+
+  string-common-content:
+    - meta_prepend: true
+    - include: xpath-string-interpolations
+
+###[ XSL TAGS ]################################################################
+
+  xsl-tag:
+    # scope `<xsl:template ...>` special for adding it to symbol list.
+    - match: (<)(xsl)(:)(template)(?=[/<>\s])
+      captures:
+        1: punctuation.definition.tag.begin.opening.xsl
+        2: entity.name.tag.namespace.xsl
+        3: entity.name.tag.xsl punctuation.separator.namespace.xsl
+        4: entity.name.tag.localname.xsl
+      push: xsl-begin-template-tag-content
+    # opening maybe self-closing tag with optional attributes
+    - match: (<){{qualified_xsl_tag_name}}
+      captures:
+        1: punctuation.definition.tag.begin.opening.xsl
+        2: entity.name.tag.namespace.xsl
+        3: entity.name.tag.xsl punctuation.separator.namespace.xsl
+        4: entity.name.tag.localname.xsl
+        5: invalid.illegal.bad-tag-name.xsl
+      push: xsl-begin-tag-content
+    # end-tag without attribute support
+    - match: (</){{qualified_xsl_tag_name}}
+      captures:
+        1: punctuation.definition.tag.begin.closing.xsl
+        2: entity.name.tag.namespace.xsl
+        3: entity.name.tag.xsl punctuation.separator.namespace.xsl
+        4: entity.name.tag.localname.xsl
+        5: invalid.illegal.bad-tag-name.xsl
+      push: xsl-end-tag-content
+
+  xsl-begin-template-tag-content:
+    - meta_scope: meta.tag.template.xsl
+    - include: begin-tag-content
+
+  xsl-begin-tag-content:
+    - meta_scope: meta.tag.xsl
+    - include: begin-tag-content
+
+  xsl-end-tag-content:
+    - meta_scope: meta.tag.xsl
+    - include: end-tag-content
+
+###[ XPATH TAG ATTRIBUTES ]####################################################
+
+  tag-xpath-attribute:
+    - match: '{{qualified_xpath_attribute_name}}'
+      captures:
+        1: entity.other.attribute-name.namespace.xml
+        2: invalid.illegal.bad-attribute-name.xml
+        3: entity.other.attribute-name.xml punctuation.separator.namespace.xml
+        4: entity.other.attribute-name.localname.xml
+      push: tag-xpath-attribute-assignment
+
+  tag-xpath-attribute-assignment:
+    - meta_include_prototype: false
+    - match: =
+      scope: punctuation.separator.key-value.xml
+      set: tag-xpath-attribute-value
+    - include: tag-else-pop
+
+  tag-xpath-attribute-value:
+    # The multipush construct is required due to:
+    # https://github.com/sublimehq/sublime_text/issues/3784
+    - meta_include_prototype: false
+    - match: \"
+      scope: string.quoted.double.xml punctuation.definition.string.begin.xml
+      set: tag-xpath-attribute-double-qouted-body
+    - match: \'
+      scope: string.quoted.single.xml punctuation.definition.string.begin.xml
+      set: tag-xpath-attribute-single-qouted-body
+    - match: '[^?/<>\s]+'
+      scope: invalid.illegal.bad-attribute-value.xml
+      pop: 1
+    - include: tag-else-pop
+
+  tag-xpath-attribute-double-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xml
+    - match: \"
+      scope: string.quoted.double.xml punctuation.definition.string.end.xml
+      pop: 1
+    - match: ''
+      embed: xpath-query-content
+      embed_scope: source.xpath.embedded.xsl
+      escape: (?=\")
+
+  tag-xpath-attribute-single-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xml
+    - match: \'
+      scope: string.quoted.single.xml punctuation.definition.string.end.xml
+      pop: 1
+    - match: ''
+      embed: xpath-query-content
+      embed_scope: source.xpath.embedded.xsl
+      escape: (?=\')
+
+###[ XPATH INTERPOLATIONS ]####################################################
+
+  xpath-string-interpolations:
+    - match: \{
+      scope: punctuation.section.interpolation.begin.xsl
+      push: xpath-string-interpolation-body
+
+  xpath-string-interpolation-body:
+    - clear_scopes: 1
+    - meta_scope: meta.interpolation.xsl
+    - meta_content_scope: source.xpath.embedded.xsl
+    - include: xpath-text-interpolation-body
+
+  xpath-text-interpolations:
+    - match: \{
+      scope: punctuation.section.interpolation.begin.xsl
+      push: xpath-text-interpolation-body
+
+  xpath-text-interpolation-body:
+    - meta_scope: meta.interpolation.xsl
+    - meta_content_scope: source.xpath.embedded.xsl
+    - match: \}
+      scope: punctuation.section.interpolation.end.xsl
+      pop: 1
+    - include: xpath-query-content
+
+  xpath-query-content:
+    - include: scope:source.xpath.1
+      apply_prototype: true

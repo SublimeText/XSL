@@ -1,5 +1,14 @@
 [
 	{
+		"caption": "New XML Schema...",
+		"command": "new_xml_file",
+		"args": {
+			"name": "untitled.xsd",
+			"syntax_file": "Packages/XSL/XSD.sublime-syntax",
+			"snippet_file": "Packages/XSL/Snippets/XSD/schema-11.sublime-snippet"
+		},
+	},
+	{
 		"caption": "New XML Stylesheet...",
 		"command": "new_xml_file",
 		"args": {

@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1"
+	xmlns="${1:http://my-namespace}"
+	targetNamespace="${1:http://my-namespace}"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+
+	$0
+</xs:schema>
+]]></content>
+	<tabTrigger>schema-11</tabTrigger>
+	<scope>text.xml.xsd - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
+	<description>XML Schema 1.1</description>
+</snippet>

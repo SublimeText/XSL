@@ -1,0 +1,101 @@
+{
+	"scope": "source.xpath - meta.function-call.identifier - source.xpath comment - source.xpath string",
+	"completions": [
+
+		// XPath 1.0 Tests
+
+		{
+			"trigger": "node()",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "node()"
+		},
+		{
+			"trigger": "text()",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "text()"
+		},
+		{
+			"trigger": "comment()",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "comment()"
+		},
+		{
+			"trigger": "processing-instruction()",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "processing-instruction($1)"
+		},
+
+		// XPath 2.0 Tests
+
+		{
+			"trigger": "document-node(arg)",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "document-node($1)"
+		},
+		{
+			"trigger": "attribute(arg)",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "attribute($1)"
+		},
+		{
+			"trigger": "schema-attribute(arg)",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "schema-attribute($1)"
+		},
+		{
+			"trigger": "element(arg)",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "element($1)"
+		},
+		{
+			"trigger": "schema-element(arg)",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "schema-element($1)"
+		},
+		{
+			"trigger": "empty-sequence()",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "empty-sequence()"
+		},
+		{
+			"trigger": "item()",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "item()"
+		},
+
+		// XPath 3.0 Tests
+
+		{
+			"trigger": "function()",
+			"annotation": "XPath 3.0",
+			"kind": ["type", "t", "Test"],
+			"contents": "function($1)",
+		},
+
+		// XPath 3.1 Tests
+
+		{
+			"trigger": "array()",
+			"annotation": "XPath 3.1",
+			"kind": ["type", "t", "Test"],
+			"contents": "array($1)"
+		},
+		{
+			"trigger": "map()",
+			"annotation": "XPath 3.1",
+			"kind": ["type", "t", "Test"],
+			"contents": "map($1)"
+		},
+	]
+}

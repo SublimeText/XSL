@@ -1,0 +1,17 @@
+%YAML 1.2
+---
+name: XSL 3.1
+scope: text.xml.xsl.3
+version: 2
+
+extends: XSL 2.0.sublime-syntax
+
+contexts:
+
+  xpath-query-content:
+    - include: scope:source.xpath.3
+      apply_prototype: true
+
+  xpath-sequence-type:
+    - include: scope:source.xpath.3#sequence-type
+      apply_prototype: true

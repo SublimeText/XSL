@@ -1,0 +1,12 @@
+%YAML 1.2
+---
+name: XSL
+scope: text.xml.xsl
+version: 2
+
+extends: XSL 3.1.sublime-syntax
+
+file_extensions:
+  - xsl   # Stylsheet
+  - xslt  # Transformation
+  - xpl   # XProc

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+<dict>
+	<key>scope</key>
+	<string>text.xml.xsl meta.tag.template</string>
+	<key>settings</key>
+	<dict>
+		<key>showInSymbolList</key>
+		<integer>1</integer>
+		<key>symbolTransformation</key>
+		<string><![CDATA[
+			s/\n/ /g;
+			s/^\s*<xsl:template\s+(.*)\s*\/?>/$1/
+		]]></string>
+	</dict>
+</dict>
+</plist>

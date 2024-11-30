@@ -1,0 +1,87 @@
+{
+	"scope": "source.xpath meta.function-call.identifier",
+	"completions": [
+
+		// XPath 1.0 Tests
+
+		{
+			"trigger": "node",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "text",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "comment",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "processing-instruction",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+		},
+
+		// XPath 2.0 Tests
+
+		{
+			"trigger": "document-node",
+			"annotation": "XPath 1.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "attribute",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "schema-attribute",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "element",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "schema-element",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "empty-sequence",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "item",
+			"annotation": "XPath 2.0",
+			"kind": ["type", "t", "Test"],
+		},
+
+		// XPath 3.0 Tests
+
+		{
+			"trigger": "function",
+			"annotation": "XPath 3.0",
+			"kind": ["type", "t", "Test"],
+		},
+
+		// XPath 3.1 Tests
+
+		{
+			"trigger": "array",
+			"annotation": "XPath 3.1",
+			"kind": ["type", "t", "Test"],
+		},
+		{
+			"trigger": "map",
+			"annotation": "XPath 3.1",
+			"kind": ["type", "t", "Test"],
+		},
+	]
+}

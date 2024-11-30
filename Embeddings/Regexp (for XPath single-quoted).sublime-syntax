@@ -1,0 +1,16 @@
+%YAML 1.2
+---
+scope: source.regexp.embedded.xpath.string.quoted.single
+version: 2
+hidden: true
+
+extends: Regexp (for XSL).sublime-syntax
+
+contexts:
+
+  prototype:
+    # https://www.w3.org/TR/2010/REC-xpath20-20101214/#doc-xpath-EscapeApos
+    - match: \'\'
+      scope: constant.character.escape.xpath
+    - match: (?=\')
+      pop: 1

@@ -1,0 +1,167 @@
+%YAML 1.2
+---
+# https://www.w3.org/TR/xmlschema11-1/
+name: XSD
+scope: text.xml.xsd
+version: 2
+
+extends: Packages/XML/XML.sublime-syntax
+
+file_extensions:
+  - xsd
+  - xspec
+  - wsdl
+
+variables:
+
+  # attributes with regexp expression values
+  qualified_regexp_attribute_name: |-
+    (?x)
+    (?:
+      (?:
+        ({{identifier}})           # 1: valid namespace
+      | ([^:=/<>\s]+)              # 2: invalid namespace
+      )(:)
+    )?                             # namespace is optional
+    ({{regexp_attribute_name}})    # 3: valid localname
+    (?=[=<>\s]|[/?]>)
+
+  regexp_attribute_name: |-
+    (?xi: value )
+
+  # attributes with xpath expression values
+  qualified_xpath_attribute_name: |-
+    (?x)
+    (?:
+      (?:
+        ({{identifier}})           # 1: valid namespace
+      | ([^:=/<>\s]+)              # 2: invalid namespace
+      )(:)
+    )?                             # namespace is optional
+    ({{xpath_attribute_name}})     # 3: valid localname
+    (?=[=<>\s]|[/?]>)
+
+  xpath_attribute_name: |-
+    (?xi: select | test | xpath )
+
+contexts:
+
+  tag-attribute:
+    - meta_prepend: true
+    - include: tag-regexp-attribute
+    - include: tag-xpath-attribute
+
+###[ REGEX TAG ATTRIBUTES ]####################################################
+
+  tag-regexp-attribute:
+    - match: '{{qualified_regexp_attribute_name}}'
+      captures:
+        1: entity.other.attribute-name.namespace.xml
+        2: invalid.illegal.bad-attribute-name.xml
+        3: entity.other.attribute-name.xml punctuation.separator.namespace.xml
+        4: entity.other.attribute-name.localname.xml
+      push: tag-regexp-attribute-assignment
+
+  tag-regexp-attribute-assignment:
+    - meta_include_prototype: false
+    - match: =
+      scope: punctuation.separator.key-value.xml
+      set: tag-regexp-attribute-value
+    - include: tag-else-pop
+
+  tag-regexp-attribute-value:
+    # The multipush construct is required due to:
+    # https://github.com/sublimehq/sublime_text/issues/3784
+    - meta_include_prototype: false
+    - match: \"
+      scope: punctuation.definition.string.begin.xml
+      set: tag-regexp-attribute-double-qouted-body
+    - match: \'
+      scope: punctuation.definition.string.begin.xml
+      set: tag-regexp-attribute-single-qouted-body
+    - match: '[^?/<>\s]+'
+      scope: invalid.illegal.bad-attribute-value.xml
+      pop: 1
+    - include: tag-else-pop
+
+  tag-regexp-attribute-double-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.regexp.xml string.quoted.double.xml
+    - match: \"
+      scope: punctuation.definition.string.end.xml
+      pop: 1
+    - match: ''
+      embed: regexp-content
+      escape: (?=\")
+
+  tag-regexp-attribute-single-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.regexp.xml string.quoted.single.xml
+    - match: \'
+      scope: punctuation.definition.string.end.xml
+      pop: 1
+    - match: ''
+      embed: regexp-content
+      escape: (?=\')
+
+  regexp-content:
+    - include: scope:source.regexp.embedded.xsl
+      apply_prototype: true
+
+###[ XPATH TAG ATTRIBUTES ]####################################################
+
+  tag-xpath-attribute:
+    - match: '{{qualified_xpath_attribute_name}}'
+      captures:
+        1: entity.other.attribute-name.namespace.xml
+        2: invalid.illegal.bad-attribute-name.xml
+        3: entity.other.attribute-name.xml punctuation.separator.namespace.xml
+        4: entity.other.attribute-name.localname.xml
+      push: tag-xpath-attribute-assignment
+
+  tag-xpath-attribute-assignment:
+    - meta_include_prototype: false
+    - match: =
+      scope: punctuation.separator.key-value.xml
+      set: tag-xpath-attribute-value
+    - include: tag-else-pop
+
+  tag-xpath-attribute-value:
+    # The multipush construct is required due to:
+    # https://github.com/sublimehq/sublime_text/issues/3784
+    - meta_include_prototype: false
+    - match: \"
+      scope: string.quoted.double.xml punctuation.definition.string.begin.xml
+      set: tag-xpath-attribute-double-qouted-body
+    - match: \'
+      scope: string.quoted.single.xml punctuation.definition.string.begin.xml
+      set: tag-xpath-attribute-single-qouted-body
+    - match: '[^?/<>\s]+'
+      scope: invalid.illegal.bad-attribute-value.xml
+      pop: 1
+    - include: tag-else-pop
+
+  tag-xpath-attribute-double-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xml
+    - match: \"
+      scope: string.quoted.double.xml punctuation.definition.string.end.xml
+      pop: 1
+    - match: ''
+      embed: xpath-query-content
+      escape: (?=\")
+
+  tag-xpath-attribute-single-qouted-body:
+    - meta_include_prototype: false
+    - meta_scope: meta.string.xml
+    - match: \'
+      scope: string.quoted.single.xml punctuation.definition.string.end.xml
+      pop: 1
+    - match: ''
+      embed: xpath-query-content
+      escape: (?=\')
+
+  xpath-query-content:
+    - meta_scope: source.xpath.embedded.xsl
+    - include: scope:source.xpath.2
+      apply_prototype: true

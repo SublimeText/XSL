@@ -1,0 +1,40 @@
+%YAML 1.2
+---
+# https://www.w3.org/TR/xmlschema11-2/#regexs
+scope: source.regexp.embedded.xsl
+version: 2
+hidden: true
+
+extends: RegExp (Basic for XSL).sublime-syntax
+
+variables:
+
+  invalid_char_escape: \\[xCM]
+
+contexts:
+
+  main-extended: []
+
+  base-literal-extended: []
+
+  charset-body:
+    - meta_append: true
+    # character class subtraction
+    - match: -(?=\[)
+      scope: keyword.operator.arithmetic.regexp
+    - include: charsets
+
+  charset-ranges:
+    # check for character class subtraction
+    - match: (?=(?:{{known_char_escape}}|{{char_escape}}|(?!\\-)[^\[\]])-[^\[\]])
+      push: [charset-range-end, charset-range-begin]
+
+  group-xmode-on: []
+
+  group-xmode-off: []
+
+  xmode-on: []
+
+  xmode-off: []
+
+  xmode-modifier: []

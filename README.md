@@ -1,6 +1,6 @@
 # XSL
 
-Sublime Text syntax definition, completions and snippets for [XML Stylesheet Transformation](https://www.w3.org/TR/xslt20/) files.
+Sublime Text Syntax definition, completions and snippets for [XPath](https://www.w3.org/TR/xpath), [XML Schema](https://www.w3.org/XML/Schema) and [XML Stylesheet Transformation](https://www.w3.org/TR/xslt20/) files.
 
 ## Installation
 
@@ -38,7 +38,67 @@ To easily start a new XML Schema or Stylesheet ...
    - `New XML Stylesheet...`
    - `New XML Stylesheet 1.0 (exslt)...`
 
+### Deactivate Snippets
+
+To ignore snippets that are provided by default, 
+add them to `ignored_snippets` setting.
+
+| ignored snippets | values
+|------------------|--------------------------------------
+| all              | `"XSL/Snippets/*"`
+| XSD              | `"XSL/Snippets/XSD/*"`
+| XSLT             | `"XSL/Snippets/XSLT/*"`
+
+To only keep schema related snippets...
+
+```json
+{
+    "ignored_snippets": [
+        "XSL/Snippets/XSLT",
+    ],
+}
+```
+
+
 ### Main Snippets
+
+Snippets to start a new document with.
+
+#### schema-10
+
+Start a new XML Schema Version 1.0
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.0" vc:maxVersion="1.1"
+  xmlns="${1:http://my-namespace}"
+  targetNamespace="${1:http://my-namespace}"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  $0
+</xs:schema>
+```
+
+#### schema-11
+
+Start a new XML Schema Version 1.1
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1"
+  xmlns="${1:http://my-namespace}"
+  targetNamespace="${1:http://my-namespace}"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  $0
+</xs:schema>
+```
 
 #### stylesheet
 
