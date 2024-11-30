@@ -1,0 +1,39 @@
+{
+  "scope": "text.xml.xsl",
+
+  "completions":
+  [
+    // attribute-completions
+    { "trigger": "cdata", "contents": "<![CDATA[${1}]]>" },
+    { "trigger": "match", "contents" : "match=\"${1}\"" },
+    { "trigger": "mode", "contents" : "mode=\"${1}\"" },
+    { "trigger": "name", "contents" : "name=\"${1}\"" },
+    { "trigger": "namespace", "contents" : "namespace=\"${1}\"" },
+    { "trigger": "select", "contents" : "select=\"${1}\"" },
+    { "trigger": "test", "contents" : "test=\"${1}\"" },
+    { "trigger": "use-attribute-sets", "contents" : "use-attribute-sets=\"${1}\"" },
+
+    // functions
+    { "trigger": "current", "contents": "current()" },
+    { "trigger": "document", "contents": "document($0)" },
+    { "trigger": "element-available", "contents": "element-available($0)" },
+    { "trigger": "format-number", "contents": "format-number($1, $2, $3)" },
+    { "trigger": "generate-id", "contents": "generate-id($0)" },
+    { "trigger": "key", "contents": "key($1, $2)" },
+    { "trigger": "system-property", "contents": "system-property($0)" },
+    { "trigger": "unparsed-entity-uri", "contents": "unparsed-entity-uri($0)" },
+
+    // completions
+    "ascending",
+    "case-order",
+    "data-type",
+    "descending",
+    "lang",
+    "lower-first",
+    "number",
+    "order",
+    "template",
+    "transform",
+    "upper-first"
+  ]
+}
