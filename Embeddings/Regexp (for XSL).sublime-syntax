@@ -5,7 +5,7 @@ scope: source.regexp.embedded.xsl
 version: 2
 hidden: true
 
-extends: RegExp (Basic for XSL).sublime-syntax
+extends: Packages/Regular Expressions/RegExp (Basic).sublime-syntax
 
 variables:
 

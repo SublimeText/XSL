@@ -44,10 +44,14 @@ contexts:
   tag:
     - meta_prepend: true
     - include: xsl-tag
+    - include: scope:text.html.basic#script-tag
+    - include: scope:text.html.basic#style-tag
 
   tag-attribute:
     - meta_prepend: true
     - include: tag-xpath-attribute
+    - include: scope:text.html.basic#tag-event-attribute
+    - include: scope:text.html.basic#tag-style-attribute
 
   comment-content:
     - meta_prepend: true
