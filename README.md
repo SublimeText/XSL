@@ -28,6 +28,16 @@ The easiest way to install is using [Package Control](https://packagecontrol.io)
 
 ## Usage
 
+### Begin a Document
+
+To easily start a new XML Schema or Stylesheet ...
+
+1. Open `Command Palette` using <kbd>ctrl+shift+P</kbd> or menu item `Tools → Command Palette...`
+2. Execute one of:
+   - `New XML Schema...`
+   - `New XML Stylesheet...`
+   - `New XML Stylesheet 1.0 (exslt)...`
+
 ### Main Snippets
 
 #### stylesheet

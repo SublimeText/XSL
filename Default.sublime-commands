@@ -1,0 +1,20 @@
+[
+	{
+		"caption": "New XML Stylesheet...",
+		"command": "new_xml_file",
+		"args": {
+			"name": "untitled.xsl",
+			"syntax_file": "Packages/XSL/XSL.sublime-syntax",
+			"snippet_file": "Packages/XSL/Snippets/XSLT/stylesheet.sublime-snippet"
+		},
+	},
+	{
+		"caption": "New XML Stylesheet 1.0 (exslt)...",
+		"command": "new_xml_file",
+		"args": {
+			"name": "untitled.xsl",
+			"syntax_file": "Packages/XSL/XSL.sublime-syntax",
+			"snippet_file": "Packages/XSL/Snippets/XSLT/stylesheet-10-exslt.sublime-snippet"
+		},
+	}
+]
