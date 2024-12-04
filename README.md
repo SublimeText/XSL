@@ -2,6 +2,8 @@
 
 Sublime Text Syntax definition, completions and snippets for [XPath](https://www.w3.org/TR/xpath), [XML Schema](https://www.w3.org/XML/Schema) and [XML Stylesheet Transformation](https://www.w3.org/TR/xslt20/) files.
 
+![preview](preview.png)
+
 ## Installation
 
 ### Package Control
@@ -447,3 +449,19 @@ Snippets to work with XSL transformation.
 ```
 <xsl:with-param name="${1}" select="${2}" />
 ```
+
+## Troubleshooting
+
+### §1 Syntax Definition Parse Errors
+
+XSL extends Sublime Text's _Regular Expressions_ and _XML_ syntax definition.
+
+If XSL syntax highlighting doesn't work 
+and console displays syntax errors in _XSD.sublime-syntax_ or _XSL.sublime-syntax_
+please make sure to remove any out-dated syntax override.
+
+Steps:
+
+1. call _Menu > Preferences > Browse Packages.._
+2. Look for _XML_ folder
+3. Remove it or at least delete any syntax definition in it.

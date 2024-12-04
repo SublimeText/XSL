@@ -3,5 +3,9 @@
 .gitattributes  export-ignore
 .gitignore      export-ignore
 
+# Screenshots
+preview.*       export-ignore
+
 # Development
 tests/          export-ignore
+*.cmd           export-ignore
