@@ -3,6 +3,6 @@
 	${0}
 </xsl:for-each>]]></content>
 	<tabTrigger>for</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>for-each</description>
 </snippet>

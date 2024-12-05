@@ -3,6 +3,6 @@
 	<xsl:with-param name="${2}" select="${3}"/>
 </xsl:call-template>]]></content>
 	<tabTrigger>callw</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>call-template (with-param)</description>
 </snippet>

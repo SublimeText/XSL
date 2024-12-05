@@ -4,6 +4,6 @@
 	${3:<xsl:otherwise>${0}</xsl:otherwise>}
 </xsl:choose>]]></content>
 	<tabTrigger>cw</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>choose when</description>
 </snippet>

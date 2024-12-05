@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[<xsl:apply-imports />]]></content>
 	<tabTrigger>ai</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>apply-imports</description>
 </snippet>

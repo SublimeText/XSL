@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[<xsl:variable name="${1}">${0}</xsl:variable>]]></content>
 	<tabTrigger>vari</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>variable (inner content)</description>
 </snippet>
