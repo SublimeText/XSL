@@ -1,6 +1,6 @@
 <snippet>
 	<content><![CDATA[<xsl:when test="${1}">${0}</xsl:when>]]></content>
 	<tabTrigger>wh</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>when</description>
 </snippet>

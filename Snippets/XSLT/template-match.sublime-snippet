@@ -3,6 +3,6 @@
 	${0}
 </xsl:template>]]></content>
 	<tabTrigger>tm</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>template (match)</description>
 </snippet>

@@ -3,6 +3,6 @@
 	<xsl:with-param name="${5}" select="${6}"/>
 </xsl:apply-templates>]]></content>
 	<tabTrigger>apw</tabTrigger>
-	<scope>text.xml.xsl</scope>
+	<scope>text.xml.xsl - text.xml meta.tag - text.xml meta.embedded - text.xml meta.interpolation - text.xml comment - text.xml string - text.xml source</scope>
 	<description>apply-templates (with-param)</description>
 </snippet>
